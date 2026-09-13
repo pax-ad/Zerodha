@@ -1,14 +1,7 @@
-const { Schema } = require("mongoose");
+const { model } = require("mongoose");
 
-const PositionsSchema = new Schema({
-  product: String,
-  name: String,
-  qty: Number,
-  avg: Number,
-  price: Number,
-  net: String,
-  day: String,
-  isLoss: Boolean,
-});
+const { PositionsSchema } = require("../schemas/PositionsSchema");
 
-module.exports = { PositionsSchema };
+const PositionsModel = new model("position", PositionsSchema);
+
+module.exports = { PositionsModel };
