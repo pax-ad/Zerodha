@@ -205,4 +205,3 @@ This project is developed for educational and portfolio purposes.
 
 GitHub: https://github.com/pax-ad
 
-LinkedIn: *(Add your LinkedIn profile here)*

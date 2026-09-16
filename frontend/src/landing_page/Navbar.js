@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 function Navbar() {
   return (
+    
     <nav
       class="navbar navbar-expand-lg border-bottom"
       style={{ backgroundColor: "#FFF" }}
@@ -29,6 +30,7 @@ function Navbar() {
           <form class="d-flex" role="search">
             <ul class="navbar-nav mb-lg-0">
               <li class="nav-item">
+
                 <Link class="nav-link active" aria-current="page" to="/signup">
                   Signup
                 </Link>
@@ -52,6 +54,9 @@ function Navbar() {
                 <Link class="nav-link active" to="/support">
                   Support
                 </Link>
+              </li>
+              <li class="nav-item">
+                <Link className="nav-link" to="/login">Login</Link>
               </li>
             </ul>
           </form>
