@@ -4,8 +4,8 @@ import GeneralContext from "./GeneralContext";
 import "./BuyActionWindow.css";
 
 const BuyActionWindow = ({ uid, initialMode = "BUY", availableQty = 0 }) => {
-  const [mode, setMode] = useState(initialMode); // "BUY" or "SELL"
-  const [stockQuantity, setStockQuantity] = useState(1);
+  const [mode, setMode] = useState(initialMode);
+  const [stockQuantity, setStockQuantity] = useState(availableQty > 0 ? availableQty : 1);
   const [stockPrice, setStockPrice] = useState(0.0);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -13,8 +13,45 @@ const BuyActionWindow = ({ uid, initialMode = "BUY", availableQty = 0 }) => {
   const generalContext = useContext(GeneralContext);
 
   useEffect(() => {
-    setMode(initialMode);
-  }, [initialMode]);
+    setMode(initialMode || "BUY");
+    if (availableQty && availableQty > 0) {
+      setStockQuantity(availableQty);
+    } else {
+      setStockQuantity(1);
+    }
+  }, [initialMode, availableQty]);
+
+  useEffect(() => {
+    let isMounted = true;
+    const token = localStorage.getItem("token");
+
+    const fetchCurrentPrice = async () => {
+      if (!uid || !token) return;
+
+      try {
+        const res = await axios.get("http://localhost:3002/allHoldings", {
+          headers: { Authorization: "Bearer " + token },
+        });
+
+        if (!isMounted) return;
+
+        if (Array.isArray(res.data)) {
+          const match = res.data.find((item) => item.name === uid);
+          if (match && Number(match.price) > 0) {
+            setStockPrice(Number(match.price));
+          }
+        }
+      } catch (err) {
+        console.warn("Could not prefill market price:", err);
+      }
+    };
+
+    fetchCurrentPrice();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [uid]);
 
   const handleOrderSubmit = async () => {
     setErrorMessage("");
@@ -29,7 +66,6 @@ const BuyActionWindow = ({ uid, initialMode = "BUY", availableQty = 0 }) => {
     const qtyNumber = parseInt(stockQuantity, 10);
     const priceNumber = parseFloat(stockPrice);
 
-    // Edge Case: Non-numeric or non-positive input
     if (isNaN(qtyNumber) || qtyNumber <= 0) {
       setErrorMessage("Quantity must be a positive integer.");
       return;
@@ -40,7 +76,6 @@ const BuyActionWindow = ({ uid, initialMode = "BUY", availableQty = 0 }) => {
       return;
     }
 
-    // Edge Case: Selling more than owned (frontend guard)
     if (mode === "SELL" && availableQty > 0 && qtyNumber > availableQty) {
       setErrorMessage(`Cannot sell more than available quantity (${availableQty}).`);
       return;
@@ -67,17 +102,13 @@ const BuyActionWindow = ({ uid, initialMode = "BUY", availableQty = 0 }) => {
       setIsLoading(false);
       alert(response.data.message || `${mode} order executed successfully!`);
 
-      // Trigger live data refresh in Holdings, Orders, and Funds
       if (generalContext && typeof generalContext.triggerRefresh === "function") {
-      generalContext.triggerRefresh();
+        generalContext.triggerRefresh();
       }
 
-      // Close the modal
       if (generalContext && typeof generalContext.closeBuyWindow === "function") {
-      generalContext.closeBuyWindow();
+        generalContext.closeBuyWindow();
       }
-
-      window.location.reload();
     } catch (err) {
       setIsLoading(false);
       console.error("Order submission error:", err);
@@ -91,7 +122,7 @@ const BuyActionWindow = ({ uid, initialMode = "BUY", availableQty = 0 }) => {
   };
 
   const handleClose = () => {
-    if (generalContext && generalContext.closeBuyWindow) {
+    if (generalContext && typeof generalContext.closeBuyWindow === "function") {
       generalContext.closeBuyWindow();
     }
   };
@@ -101,11 +132,13 @@ const BuyActionWindow = ({ uid, initialMode = "BUY", availableQty = 0 }) => {
 
   return (
     <div className="container" id="buy-window" draggable="true">
-      {/* Mode Switcher Tabs */}
       <div style={{ display: "flex", borderBottom: "1px solid #ddd", marginBottom: "12px" }}>
         <button
           type="button"
-          onClick={() => { setMode("BUY"); setErrorMessage(""); }}
+          onClick={() => {
+            setMode("BUY");
+            setErrorMessage("");
+          }}
           style={{
             flex: 1,
             padding: "8px",
@@ -120,7 +153,10 @@ const BuyActionWindow = ({ uid, initialMode = "BUY", availableQty = 0 }) => {
         </button>
         <button
           type="button"
-          onClick={() => { setMode("SELL"); setErrorMessage(""); }}
+          onClick={() => {
+            setMode("SELL");
+            setErrorMessage("");
+          }}
           style={{
             flex: 1,
             padding: "8px",
@@ -194,11 +230,7 @@ const BuyActionWindow = ({ uid, initialMode = "BUY", availableQty = 0 }) => {
           >
             {isLoading ? "Processing..." : mode}
           </button>
-          <button
-            type="button"
-            className="btn btn-grey"
-            onClick={handleClose}
-          >
+          <button type="button" className="btn btn-grey" onClick={handleClose}>
             Cancel
           </button>
         </div>
