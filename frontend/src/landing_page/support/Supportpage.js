@@ -1,16 +1,19 @@
 import React from "react";
 
 import Hero from "./Hero";
-import CreateTicket from "./CreateTickets";
-
+import CreateTickets from "./CreateTickets";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 
 function SupportPage() {
   return (
     <>
-      <Hero />
-      <CreateTicket />
+      <Navbar />
+      <main>
+        <Hero />
+        <CreateTickets />
+      </main>
+      <Footer />
     </>
   );
 }

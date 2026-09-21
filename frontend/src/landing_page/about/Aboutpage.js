@@ -1,15 +1,21 @@
+// ./frontend/src/landing_page/about/Aboutpage.js
 import React from "react";
-
 import Hero from "./Hero";
 import Team from "./Team";
+import Navbar from "../Navbar";
+import Footer from "../Footer";
 
-function PricingPage() {
+function AboutPage() {
   return (
     <>
-      <Hero />
-      <Team />
+      <Navbar />
+      <main>
+        <Hero />
+        <Team />
+      </main>
+      <Footer />
     </>
   );
 }
 
-export default PricingPage;
+export default AboutPage;

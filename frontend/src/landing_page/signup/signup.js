@@ -78,7 +78,7 @@ function Signup() {
           <input
             type="text"
             style={{ width: "100%", padding: "8px", marginTop: "5px" }}
-            placeholder="e.g. Aman"
+            placeholder="e.g. Max"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -90,7 +90,7 @@ function Signup() {
           <input
             type="email"
             style={{ width: "100%", padding: "8px", marginTop: "5px" }}
-            placeholder="user@example.com"
+            placeholder="max007@gmail.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required

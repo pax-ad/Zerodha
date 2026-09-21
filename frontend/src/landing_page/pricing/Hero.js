@@ -1,48 +1,44 @@
 import React from "react";
 
-function Brokerage() {
+function Hero() {
   return (
-    <div className="container">
-      <div className="row p-5 mt-5 text-center border-top">
-        <div className="col-8 p-4">
-          <a href="" style={{ textDecoration: "none" }}>
-            <h3 className="fs-5">Brokerage calculator</h3>
-          </a>
-          <ul
-            style={{ textAlign: "left", lineHeight: "2.5", fontSize: "12px" }}
-            className="text-mut"
-          >
-            <li>
-              Call & Trade and RMS auto-squareoff:Additional charges of ₹50 +
-              GST per order.
-            </li>
-            <li>Digital contract notes will be sent via e-mail.</li>
-            <li>
-              Physical copies of contract notes, if required, shall be charged
-              ₹20 per contract note. Courier charges apply.
-            </li>
-            <li>
-              For NRI account (non-PIS), 0.5% or ₹100 per executed order for
-              equity (whichever is lower).
-            </li>
-            <li>
-              For NRI account (PIS), 0.5% or ₹200 per executed order for equity
-              (whichever is lower).
-            </li>
-            <li>
-              If the account is in debit balance, any order placed will be
-              charged ₹40 per executed order instead of ₹20 per executed order.
-            </li>
-          </ul>
+    <section className="container text-center mt-5 p-4 border-bottom">
+      <h1 className="fw-semibold text-dark">Pricing</h1>
+      <h3 className="text-muted fs-5 mt-3">
+        Free equity investments and flat ₹20 intraday and F&amp;O trades
+      </h3>
+
+      <div className="row my-5 py-4 g-4 text-center justify-content-center">
+        <div className="col-12 col-md-4">
+          <div className="p-4">
+            <h1 className="display-4 fw-medium text-dark">₹0</h1>
+            <h4 className="fs-5 mt-3 text-dark">Free equity delivery</h4>
+            <p className="text-muted mt-3" style={{ fontSize: "14px", lineHeight: "1.7" }}>
+              All equity delivery investments (NSE, BSE) are absolutely free — ₹0 brokerage.
+            </p>
+          </div>
         </div>
-        <div className="col-4 p-4">
-          <a href="" style={{ textDecoration: "none" }}>
-            <h3 className="fs-5">List of charges</h3>
-          </a>
+        <div className="col-12 col-md-4">
+          <div className="p-4">
+            <h1 className="display-4 fw-medium text-dark">₹20</h1>
+            <h4 className="fs-5 mt-3 text-dark">Intraday and F&amp;O trades</h4>
+            <p className="text-muted mt-3" style={{ fontSize: "14px", lineHeight: "1.7" }}>
+              Flat ₹20 or 0.03% (whichever is lower) per executed order on intraday trades across equity, currency, and commodity trades.
+            </p>
+          </div>
+        </div>
+        <div className="col-12 col-md-4">
+          <div className="p-4">
+            <h1 className="display-4 fw-medium text-dark">₹0</h1>
+            <h4 className="fs-5 mt-3 text-dark">Free direct MF</h4>
+            <p className="text-muted mt-3" style={{ fontSize: "14px", lineHeight: "1.7" }}>
+              All direct mutual fund investments are absolutely free — ₹0 commissions &amp; DP charges.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
-export default Brokerage;
+export default Hero;

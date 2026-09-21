@@ -61,7 +61,7 @@ function Login() {
   return (
     <div className="container p-5">
       <div className="row text-center mt-4">
-        <h2>Login to Kite</h2>
+        <h2>Login </h2>
         <p className="text-muted">Enter your registered email and password</p>
       </div>
 

@@ -2,21 +2,26 @@ import React from "react";
 
 function Hero() {
   return (
-    <div className="container border-bottom mb-5">
-      <div className="text-center mt-5 p-3">
-        <h1>Technology</h1>
-        <h3 className="text-muted mt-3 fs-4">
-          Sleek, modern and intuitive trading platforms
-        </h3>
-        <p className="mt-3 mb-5">
-          Check out our{" "}
-          <a href="" style={{ textDecoration: "none" }}>
-            investment offerings{" "}
-            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-          </a>
-        </p>
+    <section className="container border-bottom mb-5">
+      <div className="row justify-content-center text-center mt-5 p-3">
+        <div className="col-12 col-md-8">
+          <h1 className="fw-semibold text-dark mb-2">Technology</h1>
+          <h3 className="text-secondary mt-3 fs-4 fw-normal">
+            Sleek, modern, and intuitive trading platforms
+          </h3>
+          <p className="mt-3 mb-5 text-muted">
+            Check out our{" "}
+            <a
+              href="#offerings"
+              className="text-primary text-decoration-none fw-medium"
+            >
+              investment offerings{" "}
+              <i className="fa fa-long-arrow-right ms-1" aria-hidden="true"></i>
+            </a>
+          </p>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 

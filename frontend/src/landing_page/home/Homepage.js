@@ -12,7 +12,7 @@ function Homepage() {
     return ( 
       
         <>
-          {/* we have imported them accordign to the order we want on the page*/}
+          {/* we have imported them according to the order we want on the page*/}
         <Navbar/>
         <Hero/>
         <Awards/>
